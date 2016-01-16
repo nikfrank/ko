@@ -1,0 +1,40 @@
+{
+  "name": "ko-gen",
+  "version": "0.0.0",
+  "description": "ko is a bash automator",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo karma"
+  },
+  "preferGlobal": true,
+  "bin": {
+    "ko": "ko.cli.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/nikfrank/ko.git"
+  },
+  "keywords": [
+    "automation"
+  ],
+  "author": {
+    "name": "Nik Frank",
+    "email": "nikbfrank+npm@gmail.com",
+    "url": "http://nikfrank.com/"
+  },
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/nikfrank/ko/issues"
+  },
+  "homepage": "https://github.com/nikfrank/ko#readme",
+  "readme": "ko is a project generator written in bash\n\nthe name comes from the game of go, where ko is a rule\nwhich disallows infinite repitions. I like that name for this.\n\n\nI use bash to copy files around and replace parts of them\n\nso why would I write an automator for that in bad OO js?\n\nand why would I require user interaction in an automator?\n\n\nthese are just a few problems I have with current solutions.\n\n\n---\n\nwe want to be able to set constants in our project\n\nand then use those constants to render files (one dir at a time usually)\n\ninto our project\n\n\nfirst step:\n\na generator with a dir structure of\n\npackage.json\n/:command/{package.json, sourcefile.template.*}\n\n\nwould allow us to issue the commands\n\nko command subcommand cli-param --option\n\nwhere options are listed in the package.json[ko]\n\nie\n\nko directive ko-table-paginator ko\n\nwhich would make a directive called ko-table-paginator in components/ko/\n\n((the generator command has ./components as a default directory))\n\n---\n\nlater\n\nalso commands can have nicknames which are lazier to type\n\nko d ko-table-paginator ko\n\nand maybe a smart generator would use the namespace to place the files!\n\n---\n\nthis first generator I'm writing is for angular es6\n\nand the rendering will be done by bash itself\n\nfrankly, anything more would be overkill.",
+  "readmeFilename": "README.md",
+  "gitHead": "5e69f8eabb6d7830f9ab6670b62b6eb726943be8",
+  "_id": "ko-gen@0.0.0",
+  "_shasum": "bc5f56fe508e2b1984cc419cdfda2ab18b84377e",
+  "_from": "../tms/ko-gen",
+  "_resolved": "file:../tms/ko-gen",
+  "dependencies": {
+    "shelljs": "^0.5.3"
+  }
+}
