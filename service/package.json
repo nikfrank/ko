@@ -1,0 +1,12 @@
+{
+    "name":"service",
+    "files":[
+        "NAME.service.js.tpl",
+        "NAME.service.spec.js.tpl"
+    ],
+    "vars":[
+	"PLACE",
+        "NAME"
+    ],
+    "constants":{"APP":"tmsSelfServiceApp"}
+}
