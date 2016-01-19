@@ -5,7 +5,6 @@ describe('Directive: DASH2CAMEL(NAME)', function () {
     // load the directive's module and view
     beforeEach(module('APP'));
     beforeEach(module('PLACE/NAME.html'));
-    beforeEach(module('app/i18n/locale-en_US.toml'));
 
     var element, scope;
 
