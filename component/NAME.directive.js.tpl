@@ -8,7 +8,8 @@ angular.module('APP')
 	  restrict: 'EA',
 	  scope: {},
 	  bindToController:{},
-	  controller: 'DASH2PASCAL(NAME)Controller'
+	  controller: 'DASH2PASCAL(NAME)Controller',
+	  controllerAs: 'vm'
       }
   });
 })(angular);
