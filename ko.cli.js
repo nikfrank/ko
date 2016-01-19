@@ -12,7 +12,14 @@ let pkg, files, cons, vars;
 try{
     pkg = require('./'+args[0]+'/package.json');
     files = pkg.files;
-    cons = pkg.constants;
+
+    // need to find the package.json up the dir tree!
+    // also, this only reads the constants if they're on one line!
+    // read the constants out of the package.json in the root of this project
+    let cjs = exec('cat ../package.json | grep ko-constants').output.trim();
+    cons = JSON.parse(cjs.slice(1+cjs.indexOf(':')));
+
+    //cons = pkg.constants;
     vars = pkg.vars;
 
     mkdir('-p', args[1]);
