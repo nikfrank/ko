@@ -11,19 +11,26 @@ let args = process.argv.slice(2);
 let pkg, files, cons, vars;
 try{
     pkg = require('./'+args[0]+'/package.json');
-    files = pkg.files;
+}catch(e){
+    console.error(e, 'error no ko command '+args[0]);
+    exit(1);
+}
+files = pkg.files;
+try{
     // need to find the package.json up the dir tree!
     // also, this only reads the constants if they're on one line!
     // read the constants out of the package.json in the root of this project
     let cjs = exec('cat ../package.json | grep ko-constants').output.trim();
     cons = JSON.parse(cjs.slice(1+cjs.indexOf(':')));
-
-    //cons = pkg.constants;
+}catch(e){
+    console.warn('warning no ko constants');
+    cons = {};
+}
     vars = pkg.vars;
-
+try{
     mkdir('-p', args[1]);
 }catch(e){
-    console.error(e, 'error on ko command '+args[0]);
+    console.error(e, 'error making directory '+args[1]+' for command '+args[0]);
     exit(1);
 }
 
