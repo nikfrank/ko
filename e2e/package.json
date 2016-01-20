@@ -1,0 +1,13 @@
+{
+    "name":"e2e",
+    "files":[
+        "NAME.po.js.tpl",
+        "NAME.spec.js.tpl"
+    ],
+    "vars":[
+	"PLACE",
+        "URL",
+        "NAME"
+    ],
+    "ko-constants":{"APP":"App"}
+}

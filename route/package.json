@@ -13,5 +13,5 @@
 	"URL",
 	"NAME"
     ],
-    "constants":{"APP":"tmsSelfServiceApp"}
+    "ko-constants":{"APP":"tmsSelfServiceApp"}
 }
