@@ -6,7 +6,7 @@ describe('DASH2PASCAL(NAME) View', function() {
     var page;
 
     beforeEach(function() {
-        browser.get(config.baseUrl + '/URL');
+        browser.get(config.baseUrl + 'URL');
         page = require('./NAME.po');
     });
 

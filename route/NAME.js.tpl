@@ -6,7 +6,7 @@ angular.module('APP')
 	$stateProvider
 	    .state('STATE', {
 		url: 'URL',
-		templateUrl: 'PLACE/NAME.html',
+		templateUrl: 'PATH/NAME.html',
 		controller: 'DASH2PASCAL(NAME)Controller',
 		controllerAs:'vm'	
 	    })

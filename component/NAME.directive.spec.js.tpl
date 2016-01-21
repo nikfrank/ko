@@ -4,7 +4,7 @@ describe('Directive: DASH2CAMEL(NAME)', function () {
 
     // load the directive's module and view
     beforeEach(module('APP'));
-    beforeEach(module('PLACE/NAME.html'));
+    beforeEach(module('PATH/NAME.html'));
 
     var element, scope;
 
