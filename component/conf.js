@@ -23,8 +23,8 @@ module.exports = {
   files:[
     'NAME.controller.js.tpl',
     'NAME.controller.spec.js.tpl',
-    'NAME.directive.js.tpl',
-    'NAME.directive.spec.js.tpl',
+    'NAME.component.js.tpl',
+    'NAME.component.spec.js.tpl',
     'NAME.html.tpl',
     'NAME.scss.tpl'
   ],
