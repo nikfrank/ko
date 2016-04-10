@@ -1,15 +1,11 @@
 (function(angular){
-'use strict';
+  'use strict';
 
-angular.module('APP')
-  .directive('DASH2CAMEL(NAME)', function () {
-      return {
-	  templateUrl: 'PATH/NAME.html',
-	  restrict: 'EA',
-	  scope: {},
-	  bindToController:{},
-	  controller: 'DASH2PASCAL(NAME)Controller',
-	  controllerAs: 'vm'
-      }
-  });
+  angular.module('APP')
+    .component('DASH2CAMEL(NAME)', {
+      templateUrl: 'PATH/NAME.html',
+      bindings:{},
+      controller: 'DASH2PASCAL(NAME)Controller',
+      controllerAs: 'vm'
+    });
 })(angular);
