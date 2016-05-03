@@ -7,7 +7,7 @@ describe('Component: DASH2CAMEL(NAME)', function () {
   beforeEach(module('PATH/NAME.html'));
   beforeEach(module('ngMock'));
 
-  var component, componentController, scope;
+  var component, $componentController, scope;
 
   beforeEach(inject(function($rootScope, _$componentController_) {
     scope = $rootScope.$new();
