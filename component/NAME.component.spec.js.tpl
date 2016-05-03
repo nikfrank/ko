@@ -1,6 +1,6 @@
 'use strict';
 
-describe('Directive: DASH2CAMEL(NAME)', function () {
+describe('Component: DASH2CAMEL(NAME)', function () {
 
   // load the directive's module and view
   beforeEach(module('APP'));
