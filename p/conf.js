@@ -24,7 +24,8 @@ module.exports = {
     'p.js.tpl',
     'p.spec.js.tpl',
     'p.html.tpl',
-    'p.css.tpl'
+    'p.css.tpl',
+    'name.js.tpl'
   ],
   vars:[
     'PLACE',
