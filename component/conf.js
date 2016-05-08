@@ -19,7 +19,7 @@ let utils = {
 };
 
 module.exports = {
-  name:'directive',
+  name:'component',
   files:[
     'NAME.controller.js.tpl',
     'NAME.controller.spec.js.tpl',
