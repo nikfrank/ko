@@ -34,13 +34,13 @@ module.exports = {
   varDefaults:[
     (args, cons)=>{
       let ret = args[1] || 'app';
-      let Dpath = cons.component.defaultPath.split('/');
+      let Dpath = cons.p.defaultPath.split('/');
       return utils.lazyPrefix(ret, Dpath);
     },
     (args)=>(args[1].slice(1+args[1].lastIndexOf('/'))),
     (args, cons)=>{
-      if(args[1].indexOf(cons.component.servedFrom) === 0)
-        return args[1].slice(cons.component.servedFrom.length);
+      if(args[1].indexOf(cons.p.servedFrom) === 0)
+        return args[1].slice(cons.p.servedFrom.length);
       else return args[1];
     }
   ]

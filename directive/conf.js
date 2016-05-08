@@ -36,13 +36,13 @@ module.exports = {
   varDefaults:[
     (args, cons)=>{
       let ret = args[1] || 'components/default-directive';
-      let Dpath = cons.component.defaultPath.split('/');
+      let Dpath = cons.directive.defaultPath.split('/');
       return utils.lazyPrefix(ret, Dpath);
     },
     (args)=>(args[1].slice(1+args[1].lastIndexOf('/'))),
     (args, cons)=>{
-      if(args[1].indexOf(cons.component.servedFrom) === 0)
-        return args[1].slice(cons.component.servedFrom.length);
+      if(args[1].indexOf(cons.directive.servedFrom) === 0)
+        return args[1].slice(cons.directive.servedFrom.length);
       else return args[1];
     }
   ]
