@@ -1,0 +1,20 @@
+{
+    "regexps":{
+        "APP":"someApp",
+        "N_":"some"
+    },
+    "component":{
+	"defaultPath":"client/components",
+	"servedFrom":"client/"
+    },
+    "route":{
+	"defaultPath":"client/app/routes",
+	"servedFrom":"client/"
+    },
+    "service":{
+        "defaultPath":"client/app/services"
+    },
+    "e2e":{
+        "defaultPath":"e2e"
+    }
+}
