@@ -2,23 +2,27 @@
 
 0.1
 
-clean up the readme
+vO clean up the readme
 
-actually import ko.util.js into command config
+V actually import ko.util.js into command config
 
-write tests which generate files then check them exactly
+V pack groups of commands together
 
 ---
 
 0.2
 
-pack groups of commands together
+write tests which generate files then check them exactly
 
-angular es6, ko core (make a ko command), ng webpack
+ko-ng, ko-ng-webpack (with tests)
+
+ko ko (make a ko command)
 
 ---
 
 0.3
+
+autocomplete on cli
 
 seds --> import something by genning a file and sedding another
 

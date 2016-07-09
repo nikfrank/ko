@@ -85,7 +85,26 @@ both are available during the render phase of each file
 
 ### using ko
 
-((examples for current commands))
+first, install a ko pack which has commands you wish to use
+
+currently, this can be accomplished by
+
+```
+npm i -D ko-pack-name
+```
+
+now, when you run
+
+```
+ko command-from-pack
+```
+
+ko will look in the project-root/package.json .devDependencies
+for ko-* packs
+
+inside such, it looks for ko-pack.json which lists the commands available.
+
+then it runs the command. It's really that easy.
 
 ---
 
@@ -120,7 +139,7 @@ the export from conf.js defines the files to be rendered, the names of the comma
 
 ### upcoming features
 
-((packages, sed))
+((sed, ko ko))
 ((general bash aliasing))
 
 ---
