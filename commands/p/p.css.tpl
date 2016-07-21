@@ -1,3 +1,0 @@
-NAME, [NAME] {
-  display:block;
-}     

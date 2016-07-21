@@ -8,9 +8,9 @@ require.extensions['.tpl'] = function(module, filename){
 };
 
 let args = process.argv.slice(2);
-let pkg, files, cons, vars, varDefaults, templatePrefix, filePrefix = './';
+let pkg, files, seds, cons, vars, varDefaults, templatePrefix, filePrefix = './';
 
-let koCoreCommands = ['load', 'unload', 'update', 'link', 'unlink', 'ko'];
+let koCoreCommands = ['load', 'unload', 'update', 'link', 'unlink', 'cmd', 'pack'];
 
 if(koCoreCommands.indexOf(args[0]) > -1){
   // run the core command.
@@ -52,8 +52,6 @@ if(koCoreCommands.indexOf(args[0]) > -1){
   }
 }
 
-
-
 // find .ko-rc, filePrefix (root of project rel), constants
 try{
   // look for this up the tree three levels
@@ -84,6 +82,7 @@ try{
 
 // with pkg
 files = pkg.files;
+seds = pkg.seds;
 vars = pkg.vars;
 varDefaults = pkg.varDefaults;
 
@@ -128,6 +127,14 @@ for(let i=files.length; i-->0;){
   }
   blob.to(filePrefix + args[1]+'/'+filename);
 }
+
+// run through jseds
+(seds||[]).forEach(sed=>{
+  sed = sed(args, cons);
+  let blob = cat(filePrefix + args[1]+'/'+sed.filepath);
+  blob = blob.replace(sed.match, sed.replace);
+  blob.to(filePrefix + args[1]+'/'+sed.filepath);
+});
 
 console.log(ls(filePrefix + args[1].slice(0,args[1].lastIndexOf('/'))));
 console.log(ls(filePrefix + args[1]));
