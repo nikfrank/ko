@@ -8,14 +8,14 @@ require.extensions['.tpl'] = function(module, filename){
 };
 
 let args = process.argv.slice(2);
-let pkg, files, seds, cons, vars, varDefaults, templatePrefix, filePrefix = './';
+let pkg, files, fileRewrites, cons, vars, argRewrites, templatePrefix, filePrefix = './';
 
 let koCoreCommands = ['load', 'unload', 'update', 'link', 'unlink', 'cmd', 'pack'];
 
 if(koCoreCommands.indexOf(args[0]) > -1){
   // run the core command.
   // load to npm i -D ko-pack, then sed the defaultParams into .ko-rc
-  // unload just deletes the command and seds out the params
+  // unload just deletes the command and fileRewrites out the params
   // ko commands should be independent.
 
   // update just runs npm update ko-pack
@@ -82,9 +82,9 @@ try{
 
 // with pkg
 files = pkg.files;
-seds = pkg.seds;
+fileRewrites = pkg.fileRewrites;
 vars = pkg.vars;
-varDefaults = pkg.varDefaults;
+argRewrites = pkg.argRewrites;
 
 // load core transformation functions
 let xms = require('./ko-core-xms.js');
@@ -93,7 +93,7 @@ let xms = require('./ko-core-xms.js');
 
 // set the default variable values (from eachother maybe!)
 for(let i=vars.length; i-->0;) args[i] = args[i] || '';
-for(let i=0; i<varDefaults.length; ++i) args[i+1] = varDefaults[i](args, cons);
+for(let i=0; i<argRewrites.length; ++i) args[i+1] = argRewrites[i](args, cons);
 
 // ko command place # first param is always where to put things
 // this needs to be made optional for removals and general scripting (sed,...)
@@ -128,13 +128,10 @@ for(let i=files.length; i-->0;){
   blob.to(filePrefix + args[1]+'/'+filename);
 }
 
-// run through jseds
-(seds||[]).forEach(sed=>{
+// run through jfileRewrites
+(fileRewrites||[]).forEach(sed=>{
   sed = sed(args, cons);
   let blob = cat(filePrefix + args[1]+'/'+sed.filepath);
   blob = blob.replace(sed.match, sed.replace);
   blob.to(filePrefix + args[1]+'/'+sed.filepath);
 });
-
-console.log(ls(filePrefix + args[1].slice(0,args[1].lastIndexOf('/'))));
-console.log(ls(filePrefix + args[1]));

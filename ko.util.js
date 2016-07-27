@@ -13,5 +13,7 @@ module.exports = {
     }while(mp);
     for(let i=Dpath.length-mp; i-->0;) ret = Dpath[i] + '/' + ret;
     return ret;
-  }
+  },
+
+  dash2camel:kebab=>kebab.replace(/-([a-z])/g, m=>m[1].toUpperCase())
 };
