@@ -1,6 +1,8 @@
 #!/usr/bin/env node
 'use strict';
 
+const MAX_DEPTH = 5;
+
 require('shelljs/global');
 let fs = require('fs');
 require.extensions['.tpl'] = function(module, filename){
@@ -8,7 +10,8 @@ require.extensions['.tpl'] = function(module, filename){
 };
 
 let args = process.argv.slice(2);
-let pkg, files, fileRewrites, cons, vars, argRewrites, templatePrefix, filePrefix = './';
+let pkg, files, fileRewrites, cons, vars, argRewrites, templatePrefix, filePrefix = './',
+    dirs, postScript;
 
 let koCoreCommands = ['load', 'unload', 'update', 'link', 'unlink', 'cmd', 'pack'];
 
@@ -35,8 +38,10 @@ if(koCoreCommands.indexOf(args[0]) > -1){
   // look through the package.json for ko packs
   // then look through those for this command
   let project = JSON.parse(cat('package.json'));
-  let packs = Object.keys(project.devDependencies).filter(p=> !p.indexOf('ko-'));
+  //let packs = Object.keys(project.devDependencies||[]).filter(p=> !p.indexOf('ko-'));
 
+  let packs = ls('node_modules').filter(p=> !p.indexOf('ko-'));  
+  
   let i=0;
   while(!pkg && i<packs.length){
     let packConf = require(packs[i]+'/ko-pack.json');
@@ -57,34 +62,36 @@ try{
   // look for this up the tree three levels
   // NOBDOY SHOULD EVER HAVE PROJECTS MORE THAN THREE LEVELS DEEP!
   // I kindof disagree now. this should be a loop that goes 10 deep?
-  let cjs = exec('cat .ko-rc.json 2> .ko-logs');
-  if(cjs.code){
-    cjs = exec('cat ../.ko-rc.json 2> .ko-logs');
-    filePrefix = '../';
+  let d = -1;
+  while(d++ < MAX_DEPTH){
+    let t = test('-f', filePrefix+'.ko-rc.json');
+    if(t) break;
+    else filPrefix += '../';
   }
-  if(cjs.code){
-    cjs = exec('cat ../../.ko-rc.json 2> .ko-logs');
-    filePrefix = '../../';
-  }
-  if(cjs.code){
-    cjs = exec('cat ../../../.ko-rc.json 2> .ko-logs');
-    filePrefix = '../../../';
-  }
-  cons = JSON.parse(cjs.output);
-  rm('.ko-logs');
-
+  
+  let cjs = cat(filePrefix+'.ko-rc.json');
+  cons = JSON.parse(cjs);
+  
 }catch(e){
-  console.warn('warning! no ko rc found within . .. ../.. or ../../..');
-  //    cons = {};
-  //    filePrefix = './';
-  exit(1);
+  
+  if(args[0].indexOf('init') === 0){
+    cons = {};
+    filePrefix = './';
+
+  }else{
+    console.warn('warning! no ko rc found within . .. ../.. or ../../..');
+    exit(1);
+  }
 }
+  
 
 // with pkg
 files = pkg.files;
 fileRewrites = pkg.fileRewrites;
 vars = pkg.vars;
 argRewrites = pkg.argRewrites;
+dirs = pkg.dirs || [];
+postScript = pkg.postScript || '';
 
 // load core transformation functions
 let xms = require('./ko-core-xms.js');
@@ -103,6 +110,8 @@ try{ mkdir('-p', filePrefix + args[1]);
   exit(1);
 }
 
+
+for(let i=dirs.length; i-->0;) mkdir('-p', dirs[i]);
 
 // render the files (and filenames)
 for(let i=files.length; i-->0;){   
@@ -135,3 +144,5 @@ for(let i=files.length; i-->0;){
   blob = blob.replace(sed.match, sed.replace);
   blob.to(filePrefix + args[1]+'/'+sed.filepath);
 });
+
+if(postScript) exec(postScript);

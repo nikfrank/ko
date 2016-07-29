@@ -99,7 +99,7 @@ now, when you run
 ko command-from-pack
 ```
 
-ko will look in the project-root/package.json .devDependencies
+ko will look in the project-root/node-modules
 for ko-* packs
 
 inside such, it looks for ko-pack.json which lists the commands available.
@@ -135,12 +135,37 @@ the export from conf.js defines the files to be rendered, the names of the comma
 
 ((example of .tpl file))
 
+just a regex replace with a few case-format util transform functions
+
+---
+
+### undocumented features
+
+dirs (list of directories to make at beginning of template rendering)
+
+postScript (script to execute after this command... used after init to make root component eg)
+
+varDefaults is now called argRewrites
+
+fileRewrites is an [sed by jsString.replace(regex, replaceFn),..]
+
+- this is used to edit files after the render phase
+
 ---
 
 ### upcoming features
 
-((sed, ko ko))
+((ko ko))
 ((general bash aliasing))
+(( init-$1 commands run
+```
+echo {...} > package.json &&
+npm i ko-$1 &&
+ko init-$1
+```
+instead of having to npm init empty, npm i ko-$1, ko init-$1
+))
+
 
 ---
 
