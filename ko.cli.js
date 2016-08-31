@@ -9,6 +9,17 @@ require.extensions['.tpl'] = function(module, filename){
   module.exports = fs.readFileSync(filename, 'utf8');
 };
 
+
+function readModuleFile(path) {
+  try {
+    var filename = require.resolve(path);
+    return fs.readFileSync(filename, 'utf8');
+  } catch (e) {
+    console.log(e);
+    return '';
+  }
+}
+
 let args = process.argv.slice(2);
 let pkg, files, fileRewrites, cons, vars, argRewrites, templatePrefix, filePrefix = './',
     dirs, postScript;
@@ -83,7 +94,6 @@ try{
     exit(1);
   }
 }
-  
 
 // with pkg
 files = pkg.files;
@@ -117,8 +127,8 @@ for(let i=dirs.length; i-->0;) mkdir('-p', dirs[i]);
 for(let i=files.length; i-->0;){   
   // replace constants in all file-names and file-contents
   let filename = files[i];
-  let blob = require(templatePrefix+args[0]+'/'+files[i]);
-
+  let blob = readModuleFile(templatePrefix+args[0]+'/'+files[i]);
+  
   for(let j=vars.length; j-->0;){
     filename = filename.replace((new RegExp(vars[j], 'g')), args[j+1]);
     if(args[j+1].length)
