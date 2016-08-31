@@ -149,6 +149,11 @@ for(let i=files.length; i-->0;){
     filename = filename.replace((new RegExp(con, 'g')), cons.regexps[con]);
     blob = blob.replace((new RegExp(con, 'g')), cons.regexps[con]);
   }
+
+  let dirName = (filePrefix + args[1]+'/'+filename);
+  dirName = dirName.slice(0, dirName.lastIndexOf('/'));
+  mkdir('-p', dirName);
+  
   blob.to(filePrefix + args[1]+'/'+filename);
 }
 
