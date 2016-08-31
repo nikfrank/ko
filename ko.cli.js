@@ -68,6 +68,11 @@ if(koCoreCommands.indexOf(args[0]) > -1){
   }
 }
 
+// assuming we have pkg
+if(args[0].split('-')[0] === 'init'){
+  JSON.stringify(pkg.koRc).to('.ko-rc.json');
+}
+
 // find .ko-rc, filePrefix (root of project rel), constants
 try{
   // look for this up the tree three levels
